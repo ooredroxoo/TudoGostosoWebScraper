@@ -1,0 +1,25 @@
+{
+  "name": "tudogostosowebscraper",
+  "version": "1.0.0",
+  "description": "Web Scraper for TudoGostoso Recipies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ooredroxoo/TudoGostosoWebScraper.git"
+  },
+  "keywords": [
+    "Web",
+    "Scrapper",
+    "Node",
+    "Nodejs"
+  ],
+  "author": "Rafael Nascimento Sampaio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ooredroxoo/TudoGostosoWebScraper/issues"
+  },
+  "homepage": "https://github.com/ooredroxoo/TudoGostosoWebScraper#readme"
+}
