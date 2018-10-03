@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/ooredroxoo/TudoGostosoWebScraper#readme",
   "dependencies": {
+    "puppeteer": "^1.8.0",
     "sqlite3": "^4.0.2"
   }
 }

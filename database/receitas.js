@@ -5,19 +5,14 @@ let open = () => {
 }
 
 let setup = () => {
-  // Verifica se já foi configurado
-  if(checkIfItHasBeenSetupBefore()) {
-    console.log('Um banco configurado já foi encontrado, continuando execução!');
-    return;
-  }
 
   // Abre o banco.
   db = open();
   // Inicializa uma execução sequencial.
   db.serialize(() => {
-    let sqlReceitas = "CREATE TABLE receitas (id INTEGER PRIMARY KEY, nome TEXT, tempoPreparo INTEGER, redimento INTEGER, favoritos INTEGER, url TEXT)";
+    let sqlReceitas = "CREATE TABLE IF NOT EXISTS receitas (id INTEGER PRIMARY KEY, nome TEXT, tempoPreparo INTEGER, redimento INTEGER, favoritos INTEGER, url TEXT)";
     db.run(sqlReceitas,(err) => {err !== null && console.log(err)});
-    let sqlIngredientes = "CREATE TABLE ingredientes (id INTEGER PRIMARY KEY, idReceita INTEGER, descricao TEXT, FOREIGN KEY (idReceita) REFERENCES receitas (id))";
+    let sqlIngredientes = "CREATE TABLE IF NOT EXISTS ingredientes (id INTEGER PRIMARY KEY, idReceita INTEGER, descricao TEXT, FOREIGN KEY (idReceita) REFERENCES receitas (id))";
     db.run(sqlIngredientes,(err) => {err !== null && console.log(err)});
   });
   // Fecha o banco.
@@ -43,18 +38,6 @@ let insertRecipe = (recipe) => {
   db.close();
 }
 
-let checkIfItHasBeenSetupBefore = () => {
-  let db = open();
-  let hasBeen = false;
-  db.all("SELECT name FROM sqlite_master;", (err, rows) => {
-    if(rows.length > 0) {
-      hasBeen = true;
-    }
-
-    db.close();
-    return hasBeen;
-  });
-}
 
 module.exports = {
   setup : setup,
