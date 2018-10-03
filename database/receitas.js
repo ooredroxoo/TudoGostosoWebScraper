@@ -10,7 +10,7 @@ let setup = () => {
   db = open();
   // Inicializa uma execução sequencial.
   db.serialize(() => {
-    let sqlReceitas = "CREATE TABLE IF NOT EXISTS receitas (id INTEGER PRIMARY KEY, nome TEXT, tempoPreparo INTEGER, redimento INTEGER, favoritos INTEGER, url TEXT)";
+    let sqlReceitas = "CREATE TABLE IF NOT EXISTS receitas (id INTEGER PRIMARY KEY, nome TEXT, tempoPreparo INTEGER, rendimento INTEGER, favoritos INTEGER, url TEXT)";
     db.run(sqlReceitas,(err) => {err !== null && console.log(err)});
     let sqlIngredientes = "CREATE TABLE IF NOT EXISTS ingredientes (id INTEGER PRIMARY KEY, idReceita INTEGER, descricao TEXT, FOREIGN KEY (idReceita) REFERENCES receitas (id))";
     db.run(sqlIngredientes,(err) => {err !== null && console.log(err)});
@@ -30,7 +30,7 @@ let insertRecipe = (recipe) => {
 
     let stmIngredient = db.prepare('INSERT INTO ingredientes (idReceita, descricao) VALUES (?,?)');
     recipe.ingredientes.forEach( (ingrediente) => {
-      stmIngredient.run(recipe.id, ingrediente.descricao);
+      stmIngredient.run(recipe.id, ingrediente);
     });
     stmIngredient.finalize();
   });
