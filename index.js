@@ -7,7 +7,7 @@ receitasDAO.setup();
 // Configurando script de scraping.
 (async () => {
   // Inicia um navegador.
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({headless : false});
   // Abre uma nova página
   const page = await browser.newPage();
   // Define agente e dimensões (para screenshot)
@@ -20,10 +20,12 @@ receitasDAO.setup();
     // Define URL da página.
     let url = 'https://www.tudogostoso.com.br/novidades?page=' + paginaAtual;
     // Carrega página
-    await page.goto('https://www.tudogostoso.com.br/novidades?page=1', {timeout : 600000});
+    await page.goto(url, {timeout : 600000});
     // Captura screenshot.
     let screenshotName = 'capturasDeTela/' + paginaAtual + 'aPaginaNovidades.png';
     await page.screenshot({path: screenshotName});
+
+    paginaAtual++;
   }
 
   // Fecha navegador.
